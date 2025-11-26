@@ -20,8 +20,8 @@
 | Fase 2 | Pipeline base                 |     65 min      |     75      |     10     |     25     |
 | Fase 3 | Análisis vulnerabilidades     |     70 min      |     80      |     10     |     40     |
 | Fase 4 | Correcciones                  |     75 min      |     50      |    -25     |     55     |
-| Fase 5 | Validación                    |     45 min      |     45      |     20     |     65     |
-| Fase 6 | Gestión dependencias          |     45 min      |             |            |            |
+| Fase 5 | Validación                    |     45 min      |     45      |      0     |     65     |
+| Fase 6 | Gestión dependencias          |     45 min      |     45      |      0     |     75     |
 | Fase 7 | Monitorización                |     60 min      |             |            |            |
 | Fase 8 | Documentación final           |     70 min      |             |            |            |
 | Fase 9 | Revisión y entrega            |     30 min      |             |            |            |
