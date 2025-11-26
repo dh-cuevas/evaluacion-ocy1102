@@ -1,16 +1,11 @@
-# -*- coding: utf-8 -*-
 import sqlite3
-import hashlib
+from werkzeug.security import generate_password_hash
 
-# Conexion a la base de datos (se creara automaticamente si no existe)
 conn = sqlite3.connect('example.db')
-
-# Crear un cursor
 c = conn.cursor()
 
-# Crear la tabla de usuarios
 c.execute('''
-    CREATE TABLE users (
+    CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
         password TEXT NOT NULL,
@@ -18,20 +13,15 @@ c.execute('''
     )
 ''')
 
-# Funcion para hash de contrasenas
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
-
-# Insertar un usuario de prueba (las contrasenas estan en SHA256 de 'password')
+# CORRECCION: Hash seguro con werkzeug (bcrypt)
 c.execute('''
     INSERT INTO users (username, password, role) VALUES
     ('admin', ?, 'admin'),
     ('user', ?, 'user')
-''', (hash_password('password'), hash_password('password')))
+''', (generate_password_hash('password'), generate_password_hash('password')))
 
-# Crear la tabla de comentarios
 c.execute('''
-    CREATE TABLE comments (
+    CREATE TABLE IF NOT EXISTS comments (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER NOT NULL,
         comment TEXT NOT NULL,
@@ -39,8 +29,7 @@ c.execute('''
     )
 ''')
 
-# Guardar los cambios y cerrar la conexion
 conn.commit()
 conn.close()
 
-print("Database and tables created successfully.")
+print("Database and tables created successfully with secure password hashing.")

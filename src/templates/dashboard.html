@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Welcome, user {{ user_id }}!</h1>
+        <form action="/submit_comment" method="post">
+            <div class="form-group">
+                <label for="comment">Comment</label>
+                <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Comment</button>
+        </form>
+        <h2 class="mt-5">Your Comments</h2>
+        <ul class="list-group">
+            {% for comment in comments %}
+                <li class="list-group-item">{{ comment['comment'] }}</li>
+            {% endfor %}
+        </ul>
+        <a href="/logout" class="btn btn-danger mt-3">Logout</a>
+    </div>
+</body>
+</html>
