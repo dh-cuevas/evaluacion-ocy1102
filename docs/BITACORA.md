@@ -16,7 +16,7 @@
 | Fase   | Descripción                   | Tiempo Estimado | Tiempo Real | Diferencia | % Progreso |
 |--------|-------------------------------|-----------------|-------------|------------|------------|
 | Fase 1 | Preparación del entorno       |     30 min      |     50      |     20     |     10     |
-| Fase 2 | Pipeline base                 |     65 min      |             |            |            |
+| Fase 2 | Pipeline base                 |     65 min      |     75      |     10     |     15     |
 | Fase 3 | Análisis vulnerabilidades     |     70 min      |             |            |            |
 | Fase 4 | Correcciones                  |     75 min      |             |            |            |
 | Fase 5 | Validación                    |     45 min      |             |            |            |
