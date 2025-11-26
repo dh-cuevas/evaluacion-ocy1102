@@ -18,7 +18,7 @@
 | Fase 1 | Preparación del entorno       |     30 min      |     50      |     20     |     10     |
 | Fase 2 | Pipeline base                 |     65 min      |     75      |     10     |     25     |
 | Fase 3 | Análisis vulnerabilidades     |     70 min      |     80      |     10     |     40     |
-| Fase 4 | Correcciones                  |     75 min      |     50      |     50     |     55     |
+| Fase 4 | Correcciones                  |     75 min      |     50      |    -25     |     55     |
 | Fase 5 | Validación                    |     45 min      |             |            |            |
 | Fase 6 | Gestión dependencias          |     45 min      |             |            |            |
 | Fase 7 | Monitorización                |     60 min      |             |            |            |
