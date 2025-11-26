@@ -1,0 +1,389 @@
+Started by user David Cuevas
+Obtained Jenkinsfile from git https://github.com/dh-cuevas/evaluacion-ocy1102.git
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/jenkins_home/workspace/evaluacion-ocy1102-pipeline
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/evaluacion-ocy1102-pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/dh-cuevas/evaluacion-ocy1102.git # timeout=10
+Fetching upstream changes from https://github.com/dh-cuevas/evaluacion-ocy1102.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/dh-cuevas/evaluacion-ocy1102.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 37ee806208dc94c4756f1b29e94e7aaec2334f4b (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 37ee806208dc94c4756f1b29e94e7aaec2334f4b # timeout=10
+Commit message: "Fix: Permisos para generación de reporte OWASP ZAP con chmod 777 y usuario root"
+ > git rev-list --no-walk f22da54693a5d5bf22b95a545016595fc0ad64de # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] echo
+========== Stage 1: Checkout ==========
+[Pipeline] echo
+Clonando repositorio desde GitHub...
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/evaluacion-ocy1102-pipeline/.git # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/dh-cuevas/evaluacion-ocy1102.git # timeout=10
+Fetching upstream changes from https://github.com/dh-cuevas/evaluacion-ocy1102.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.47.3'
+ > git fetch --tags --force --progress -- https://github.com/dh-cuevas/evaluacion-ocy1102.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision 37ee806208dc94c4756f1b29e94e7aaec2334f4b (refs/remotes/origin/main)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 37ee806208dc94c4756f1b29e94e7aaec2334f4b # timeout=10
+Commit message: "Fix: Permisos para generación de reporte OWASP ZAP con chmod 777 y usuario root"
+[Pipeline] echo
+Repositorio clonado exitosamente
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+========== Stage 2: Build ==========
+[Pipeline] echo
+Construyendo imagen Docker...
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ docker build -t flask-vulnerable-app:6 .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 30B 0.0s
+#1 transferring dockerfile: 568B 0.0s done
+#1 DONE 0.4s
+
+#2 [internal] load metadata for docker.io/library/python:3.9-slim
+#2 DONE 2.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B 0.0s done
+#3 DONE 0.4s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/python:3.9-slim@sha256:2d97f6910b16bd338d3060f261f53f144965f755599aab1acda1e13cf1731b1b
+#5 resolve docker.io/library/python:3.9-slim@sha256:2d97f6910b16bd338d3060f261f53f144965f755599aab1acda1e13cf1731b1b
+#5 resolve docker.io/library/python:3.9-slim@sha256:2d97f6910b16bd338d3060f261f53f144965f755599aab1acda1e13cf1731b1b 1.3s done
+#5 DONE 1.5s
+
+#4 [internal] load build context
+#4 transferring context: 143B 0.0s done
+#4 DONE 0.4s
+
+#6 [3/6] COPY requirements.txt .
+#6 CACHED
+
+#7 [4/6] COPY src/ .
+#7 CACHED
+
+#8 [5/6] RUN pip install --no-cache-dir -r requirements.txt
+#8 CACHED
+
+#9 [2/6] WORKDIR /app
+#9 CACHED
+
+#10 [6/6] RUN python create_db.py
+#10 CACHED
+
+#11 exporting to image
+#11 exporting layers
+#11 exporting layers 0.0s done
+#11 exporting manifest sha256:78bc809b721c66135f45c00a060a227678dcbb7593c867ff8a233f7289f6e679 0.1s done
+#11 exporting config sha256:bfd53bf19965b2f0866ad21d5e9e55cc1c848d3f23748a7c7c9da5cb640f852e
+#11 exporting config sha256:bfd53bf19965b2f0866ad21d5e9e55cc1c848d3f23748a7c7c9da5cb640f852e 0.1s done
+#11 exporting attestation manifest sha256:e62b276361249e2a8418828f990e277cfb17b934cba6d8fb43fc483049bae290
+#11 exporting attestation manifest sha256:e62b276361249e2a8418828f990e277cfb17b934cba6d8fb43fc483049bae290 1.2s done
+#11 exporting manifest list sha256:8be1962475975627540d9afed8ee7dbf51b80e340e1834ef4e7984c266da8d2c
+#11 exporting manifest list sha256:8be1962475975627540d9afed8ee7dbf51b80e340e1834ef4e7984c266da8d2c 0.7s done
+#11 naming to docker.io/library/flask-vulnerable-app:6
+#11 naming to docker.io/library/flask-vulnerable-app:6 0.2s done
+#11 unpacking to docker.io/library/flask-vulnerable-app:6
+#11 unpacking to docker.io/library/flask-vulnerable-app:6 0.2s done
+#11 DONE 3.6s
+[Pipeline] sh
++ docker build -t flask-vulnerable-app:latest .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 568B 0.0s done
+#1 DONE 0.4s
+
+#2 [internal] load metadata for docker.io/library/python:3.9-slim
+#2 DONE 1.6s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B 0.0s done
+#3 DONE 1.0s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [1/6] FROM docker.io/library/python:3.9-slim@sha256:2d97f6910b16bd338d3060f261f53f144965f755599aab1acda1e13cf1731b1b
+#5 resolve docker.io/library/python:3.9-slim@sha256:2d97f6910b16bd338d3060f261f53f144965f755599aab1acda1e13cf1731b1b
+#5 resolve docker.io/library/python:3.9-slim@sha256:2d97f6910b16bd338d3060f261f53f144965f755599aab1acda1e13cf1731b1b 0.8s done
+#5 DONE 0.9s
+
+#4 [internal] load build context
+#4 transferring context: 143B done
+#4 DONE 0.6s
+
+#6 [4/6] COPY src/ .
+#6 CACHED
+
+#7 [5/6] RUN pip install --no-cache-dir -r requirements.txt
+#7 CACHED
+
+#8 [2/6] WORKDIR /app
+#8 CACHED
+
+#9 [3/6] COPY requirements.txt .
+#9 CACHED
+
+#10 [6/6] RUN python create_db.py
+#10 CACHED
+
+#11 exporting to image
+#11 exporting layers done
+#11 exporting manifest sha256:78bc809b721c66135f45c00a060a227678dcbb7593c867ff8a233f7289f6e679
+#11 exporting manifest sha256:78bc809b721c66135f45c00a060a227678dcbb7593c867ff8a233f7289f6e679 0.3s done
+#11 exporting config sha256:bfd53bf19965b2f0866ad21d5e9e55cc1c848d3f23748a7c7c9da5cb640f852e
+#11 exporting config sha256:bfd53bf19965b2f0866ad21d5e9e55cc1c848d3f23748a7c7c9da5cb640f852e 0.2s done
+#11 exporting attestation manifest sha256:d10d356602a33ba526d02e90d1bb4b7e8cfc8a55b37b2ce66d240e1aaa6631bb
+#11 exporting attestation manifest sha256:d10d356602a33ba526d02e90d1bb4b7e8cfc8a55b37b2ce66d240e1aaa6631bb 1.2s done
+#11 exporting manifest list sha256:52968ea230531c37aa4fae3f949443218c23787026510170f56beff7941974b7
+#11 exporting manifest list sha256:52968ea230531c37aa4fae3f949443218c23787026510170f56beff7941974b7 0.6s done
+#11 naming to docker.io/library/flask-vulnerable-app:latest
+#11 naming to docker.io/library/flask-vulnerable-app:latest 0.1s done
+#11 unpacking to docker.io/library/flask-vulnerable-app:latest
+#11 unpacking to docker.io/library/flask-vulnerable-app:latest 0.2s done
+#11 DONE 3.3s
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] echo
+Imagen Docker construida exitosamente
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Test)
+[Pipeline] echo
+========== Stage 3: Test ==========
+[Pipeline] echo
+Ejecutando pruebas basicas...
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ docker images flask-vulnerable-app:6
+REPOSITORY             TAG       IMAGE ID       CREATED       SIZE
+flask-vulnerable-app   6         8be196247597   3 hours ago   200MB
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] echo
+Pruebas basicas completadas
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] echo
+========== Stage 4: Deploy ==========
+[Pipeline] echo
+Desplegando contenedor...
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ docker stop flask-app-running
+flask-app-running
++ docker rm flask-app-running
+flask-app-running
+[Pipeline] sh
++ docker run -d -p 5000:5000 --name flask-app-running flask-vulnerable-app:6
+c3621bcbcdd748419609ac92faf611f60b3465cd40fdb0a84929ec7cb6c3bebb
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] echo
+Aplicacion desplegada en http://localhost:5000
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Security Scan - OWASP ZAP)
+[Pipeline] echo
+========== Stage 5: Security Scan ==========
+[Pipeline] echo
+Ejecutando OWASP ZAP Baseline Scan...
+[Pipeline] script
+[Pipeline] {
+[Pipeline] sh
++ sleep 10
+[Pipeline] sh
++ mkdir -p reports
+[Pipeline] sh
++ chmod 777 reports
+[Pipeline] sh
++ pwd
++ docker run --rm --network host -u root -v /var/jenkins_home/workspace/evaluacion-ocy1102-pipeline/reports:/zap/wrk:rw ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://localhost:5000 -r zap-baseline-report-vulnerable.html -I
+Using the Automation Framework
+Total of 4 URLs
+PASS: Vulnerable JS Library (Powered by Retire.js) [10003]
+PASS: In Page Banner Information Leak [10009]
+PASS: Cookie No HttpOnly Flag [10010]
+PASS: Cookie Without Secure Flag [10011]
+PASS: Re-examine Cache-control Directives [10015]
+PASS: Cross-Domain JavaScript Source File Inclusion [10017]
+PASS: Content-Type Header Missing [10019]
+PASS: Information Disclosure - Debug Error Messages [10023]
+PASS: Information Disclosure - Sensitive Information in URL [10024]
+PASS: Information Disclosure - Sensitive Information in HTTP Referrer Header [10025]
+PASS: HTTP Parameter Override [10026]
+PASS: Information Disclosure - Suspicious Comments [10027]
+PASS: Off-site Redirect [10028]
+PASS: Cookie Poisoning [10029]
+PASS: User Controllable Charset [10030]
+PASS: User Controllable HTML Element Attribute (Potential XSS) [10031]
+PASS: Viewstate [10032]
+PASS: Directory Browsing [10033]
+PASS: Heartbleed OpenSSL Vulnerability (Indicative) [10034]
+PASS: Strict-Transport-Security Header [10035]
+PASS: Server Leaks Information via "X-Powered-By" HTTP Response Header Field(s) [10037]
+PASS: X-Backend-Server Header Information Leak [10039]
+PASS: Secure Pages Include Mixed Content [10040]
+PASS: HTTP to HTTPS Insecure Transition in Form Post [10041]
+PASS: HTTPS to HTTP Insecure Transition in Form Post [10042]
+PASS: User Controllable JavaScript Event (XSS) [10043]
+PASS: Big Redirect Detected (Potential Sensitive Information Leak) [10044]
+PASS: Retrieved from Cache [10050]
+PASS: X-ChromeLogger-Data (XCOLD) Header Information Leak [10052]
+PASS: Cookie without SameSite Attribute [10054]
+PASS: CSP [10055]
+PASS: X-Debug-Token Information Leak [10056]
+PASS: Username Hash Found [10057]
+PASS: X-AspNet-Version Response Header [10061]
+PASS: PII Disclosure [10062]
+PASS: Timestamp Disclosure [10096]
+PASS: Hash Disclosure [10097]
+PASS: Cross-Domain Misconfiguration [10098]
+PASS: Source Code Disclosure [10099]
+PASS: Weak Authentication Method [10105]
+PASS: Reverse Tabnabbing [10108]
+PASS: Modern Web Application [10109]
+PASS: Dangerous JS Functions [10110]
+PASS: Session Management Response Identified [10112]
+PASS: Verification Request Identified [10113]
+PASS: Script Served From Malicious Domain (polyfill) [10115]
+PASS: ZAP is Out of Date [10116]
+PASS: Private IP Disclosure [2]
+PASS: Session ID in URL Rewrite [3]
+PASS: Script Passive Scan Rules [50001]
+PASS: Stats Passive Scan Rule [50003]
+PASS: Insecure JSF ViewState [90001]
+PASS: Java Serialization Object [90002]
+PASS: Charset Mismatch [90011]
+PASS: Application Error Disclosure [90022]
+PASS: WSDL File Detection [90030]
+PASS: Loosely Scoped Cookie [90033]
+WARN-NEW: Missing Anti-clickjacking Header [10020] x 3 
+	http://localhost:5000 (200 OK)
+	http://localhost:5000/login (200 OK)
+	http://localhost:5000/login (200 OK)
+WARN-NEW: X-Content-Type-Options Header Missing [10021] x 3 
+	http://localhost:5000 (200 OK)
+	http://localhost:5000/login (200 OK)
+	http://localhost:5000/login (200 OK)
+WARN-NEW: Server Leaks Version Information via "Server" HTTP Response Header Field [10036] x 5 
+	http://localhost:5000 (200 OK)
+	http://localhost:5000/login (200 OK)
+	http://localhost:5000/robots.txt (404 Not Found)
+	http://localhost:5000/sitemap.xml (404 Not Found)
+	http://localhost:5000/login (200 OK)
+WARN-NEW: Content Security Policy (CSP) Header Not Set [10038] x 5 
+	http://localhost:5000 (200 OK)
+	http://localhost:5000/login (200 OK)
+	http://localhost:5000/robots.txt (404 Not Found)
+	http://localhost:5000/sitemap.xml (404 Not Found)
+	http://localhost:5000/login (200 OK)
+WARN-NEW: Storable and Cacheable Content [10049] x 5 
+	http://localhost:5000 (200 OK)
+	http://localhost:5000/login (200 OK)
+	http://localhost:5000/robots.txt (404 Not Found)
+	http://localhost:5000/sitemap.xml (404 Not Found)
+	http://localhost:5000/login (200 OK)
+WARN-NEW: Permissions Policy Header Not Set [10063] x 5 
+	http://localhost:5000 (200 OK)
+	http://localhost:5000/login (200 OK)
+	http://localhost:5000/robots.txt (404 Not Found)
+	http://localhost:5000/sitemap.xml (404 Not Found)
+	http://localhost:5000/login (200 OK)
+WARN-NEW: Authentication Request Identified [10111] x 1 
+	http://localhost:5000/login (200 OK)
+WARN-NEW: Absence of Anti-CSRF Tokens [10202] x 2 
+	http://localhost:5000/login (200 OK)
+	http://localhost:5000/login (200 OK)
+WARN-NEW: Sub Resource Integrity Attribute Missing [90003] x 3 
+	http://localhost:5000 (200 OK)
+	http://localhost:5000/login (200 OK)
+	http://localhost:5000/login (200 OK)
+WARN-NEW: Insufficient Site Isolation Against Spectre Vulnerability [90004] x 9 
+	http://localhost:5000 (200 OK)
+	http://localhost:5000/login (200 OK)
+	http://localhost:5000/login (200 OK)
+	http://localhost:5000 (200 OK)
+	http://localhost:5000/login (200 OK)
+FAIL-NEW: 0	FAIL-INPROG: 0	WARN-NEW: 10	WARN-INPROG: 0	INFO: 0	IGNORE: 0	PASS: 57
+[Pipeline] sh
++ ls -la reports/
+total 8
+drwxrwxrwx 2 jenkins jenkins 4096 Nov 26 16:10 .
+drwxr-xr-x 6 jenkins jenkins 4096 Nov 26 17:30 ..
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] echo
+Escaneo de seguridad completado
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Declarative: Post Actions)
+[Pipeline] echo
+========== Pipeline finalizado ==========
+[Pipeline] archiveArtifacts
+Archiving artifacts
+‘reports/*.html’ doesn’t match anything: ‘reports’ exists but not ‘reports/*.html’
+No artifacts found that match the file pattern "reports/*.html". Configuration error?
+[Pipeline] echo
+========== Pipeline ejecutado exitosamente ==========
+[Pipeline] echo
+Imagen Docker: flask-vulnerable-app:6
+[Pipeline] echo
+Aplicacion disponible en http://localhost:5000
+[Pipeline] echo
+Reporte de seguridad: reports/zap-baseline-report-vulnerable.html
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
