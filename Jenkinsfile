@@ -59,6 +59,33 @@ pipeline {
                 echo 'Aplicacion desplegada en http://localhost:5000'
             }
         }
+        
+        stage('Security Scan - OWASP ZAP') {
+            steps {
+                echo '========== Stage 5: Security Scan =========='
+                echo 'Ejecutando OWASP ZAP Baseline Scan...'
+                script {
+                    // Espera que la aplicacion este lista
+                    sh 'sleep 10'
+                    
+                    // Crea directorio de reportes si no existe
+                    sh 'mkdir -p reports'
+                    
+                    // Ejecuta OWASP ZAP Baseline Scan
+                    sh """
+                        docker run --rm \
+                        --network host \
+                        -v \$(pwd)/reports:/zap/wrk:rw \
+                        ghcr.io/zaproxy/zaproxy:stable \
+                        zap-baseline.py \
+                        -t http://localhost:5000 \
+                        -r zap-baseline-report-vulnerable.html \
+                        -I || true
+                    """
+                }
+                echo 'Escaneo de seguridad completado'
+            }
+        }
     }
     
     post {
@@ -66,6 +93,7 @@ pipeline {
             echo '========== Pipeline ejecutado exitosamente =========='
             echo "Imagen Docker: ${DOCKER_IMAGE}:${DOCKER_TAG}"
             echo 'Aplicacion disponible en http://localhost:5000'
+            echo 'Reporte de seguridad: reports/zap-baseline-report-vulnerable.html'
         }
         failure {
             echo '========== Pipeline fallo =========='
@@ -73,6 +101,8 @@ pipeline {
         }
         always {
             echo '========== Pipeline finalizado =========='
+            // Archiva el reporte de seguridad
+            archiveArtifacts artifacts: 'reports/*.html', allowEmptyArchive: true
         }
     }
 }
