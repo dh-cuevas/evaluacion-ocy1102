@@ -2,7 +2,7 @@
 import sqlite3
 import hashlib
 
-# Conexión a la base de datos (se creará automáticamente si no existe)
+# Conexion a la base de datos (se creara automaticamente si no existe)
 conn = sqlite3.connect('example.db')
 
 # Crear un cursor
@@ -18,14 +18,11 @@ c.execute('''
     )
 ''')
 
-# Función para hash de contraseñas
-
-
+# Funcion para hash de contrasenas
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
-
-# Insertar un usuario de prueba (las contraseñas están en SHA256 de 'password')
+# Insertar un usuario de prueba (las contrasenas estan en SHA256 de 'password')
 c.execute('''
     INSERT INTO users (username, password, role) VALUES
     ('admin', ?, 'admin'),
@@ -42,8 +39,8 @@ c.execute('''
     )
 ''')
 
-# Guardar los cambios y cerrar la conexión
+# Guardar los cambios y cerrar la conexion
 conn.commit()
 conn.close()
 
-print("Base de datos y tablas creadas con éxito.")
+print("Database and tables created successfully.")
