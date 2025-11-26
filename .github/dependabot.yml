@@ -1,0 +1,24 @@
+# Configuración de Dependabot para gestión automatizada de dependencias
+# Autor: DAVID H. CUEVAS SALGADO
+# Evaluación Parcial 3 - OCY1102
+
+version: 2
+updates:
+  # Configuración para dependencias de Python (pip)
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "security"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    reviewers:
+      - "dh-cuevas"
+    assignees:
+      - "dh-cuevas"
