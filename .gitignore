@@ -1,0 +1,38 @@
+# Python
+__pycache__
+*.py[cod]
+*~$
+py.class
+*.so
+Pythonenv/
+venv/
+*.db
+*.pyc
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jenkins
+.jenkins/
+
+# Docker
+*.log
+
+# Reportes temporales
+reports/*.html
+reports/*.json
+reports/*.xml
+
+# Secrets
+*.env
+secrets/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Base de datos
+example.db
