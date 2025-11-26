@@ -59,33 +59,39 @@ pipeline {
                 echo 'Aplicacion desplegada en http://localhost:5000'
             }
         }
-        
-        stage('Security Scan - OWASP ZAP') {
-            steps {
-                echo '========== Stage 5: Security Scan =========='
-                echo 'Ejecutando OWASP ZAP Baseline Scan...'
-                script {
-                    // Espera que la aplicacion este lista
-                    sh 'sleep 10'
-                    
-                    // Crea directorio de reportes si no existe
-                    sh 'mkdir -p reports'
-                    
-                    // Ejecuta OWASP ZAP Baseline Scan
-                    sh """
-                        docker run --rm \
-                        --network host \
-                        -v \$(pwd)/reports:/zap/wrk:rw \
-                        ghcr.io/zaproxy/zaproxy:stable \
-                        zap-baseline.py \
-                        -t http://localhost:5000 \
-                        -r zap-baseline-report-vulnerable.html \
-                        -I || true
-                    """
-                }
-                echo 'Escaneo de seguridad completado'
-            }
-        }
+        		
+		stage('Security Scan - OWASP ZAP') {
+			steps {
+				echo '========== Stage 5: Security Scan =========='
+				echo 'Ejecutando OWASP ZAP Baseline Scan...'
+				script {
+					// Espera que la aplicacion este lista
+					sh 'sleep 10'
+					
+					// Crea directorio de reportes con permisos
+					sh 'mkdir -p reports'
+					sh 'chmod 777 reports'
+					
+					// Ejecuta OWASP ZAP Baseline Scan con usuario root
+					sh """
+						docker run --rm \
+						--network host \
+						-u root \
+						-v \$(pwd)/reports:/zap/wrk:rw \
+						ghcr.io/zaproxy/zaproxy:stable \
+						zap-baseline.py \
+						-t http://localhost:5000 \
+						-r zap-baseline-report-vulnerable.html \
+						-I || true
+					"""
+					
+					// Verifica que el reporte se creó
+					sh 'ls -la reports/'
+				}
+				echo 'Escaneo de seguridad completado'
+			}
+		}
+		
     }
     
     post {
