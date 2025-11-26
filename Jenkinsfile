@@ -26,8 +26,8 @@ pipeline {
                 echo '========== Stage 2: Build =========='
                 echo 'Construyendo imagen Docker...'
                 script {
-                    bat "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
-                    bat "docker build -t ${DOCKER_IMAGE}:latest ."
+                    sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+                    sh "docker build -t ${DOCKER_IMAGE}:latest ."
                 }
                 echo 'Imagen Docker construida exitosamente'
             }
@@ -38,7 +38,7 @@ pipeline {
                 echo '========== Stage 3: Test =========='
                 echo 'Ejecutando pruebas basicas...'
                 script {
-                    bat "docker images ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                    sh "docker images ${DOCKER_IMAGE}:${DOCKER_TAG}"
                 }
                 echo 'Pruebas basicas completadas'
             }
@@ -49,12 +49,12 @@ pipeline {
                 echo '========== Stage 4: Deploy =========='
                 echo 'Desplegando contenedor...'
                 script {
-                    bat """
-                        docker stop ${CONTAINER_NAME} 2>nul || echo "No hay contenedor previo"
-                        docker rm ${CONTAINER_NAME} 2>nul || echo "No hay contenedor que eliminar"
+                    sh """
+                        docker stop ${CONTAINER_NAME} || true
+                        docker rm ${CONTAINER_NAME} || true
                     """
                     
-                    bat "docker run -d -p 5000:5000 --name ${CONTAINER_NAME} ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                    sh "docker run -d -p 5000:5000 --name ${CONTAINER_NAME} ${DOCKER_IMAGE}:${DOCKER_TAG}"
                 }
                 echo 'Aplicacion desplegada en http://localhost:5000'
             }
