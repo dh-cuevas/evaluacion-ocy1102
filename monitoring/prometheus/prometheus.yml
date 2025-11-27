@@ -1,0 +1,22 @@
+# Configuración de Prometheus
+# Autor: DAVID H. CUEVAS SALGADO
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Monitoreo de Prometheus
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Monitoreo de cAdvisor (métricas de contenedores Docker)
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+
+  # Monitoreo del contenedor Flask (si expone métricas)
+  - job_name: 'flask-app'
+    static_configs:
+      - targets: ['host.docker.internal:5000']

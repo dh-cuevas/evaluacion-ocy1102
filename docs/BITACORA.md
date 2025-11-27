@@ -22,7 +22,7 @@
 | Fase 4 | Correcciones                  |     75 min      |     50      |    -25     |     55     |
 | Fase 5 | Validación                    |     45 min      |     45      |      0     |     65     |
 | Fase 6 | Gestión dependencias          |     45 min      |     45      |      0     |     75     |
-| Fase 7 | Monitorización                |     60 min      |             |            |            |
-| Fase 8 | Documentación final           |     70 min      |             |            |            |
-| Fase 9 | Revisión y entrega            |     30 min      |             |            |            |
-|               TOTALES                  |      8 horas    |   0 horas   |            |            |
+| Fase 7 | Monitorización                |     60 min      |     60      |      0     |     85     |
+| Fase 8 | Documentación final           |     70 min      |     70      |      0     |     95     |
+| Fase 9 | Revisión y entrega            |     30 min      |     15      |     15     |    100     |
+|               TOTALES                  |   8.15 horas    | 8.17 horas  | 0.5 horas  |    100     |
